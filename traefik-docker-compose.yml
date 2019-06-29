@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  traefik:
+    image: reg.opsre.net/library/traefik:latest
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    networks:
+      - wekanmongodb_wekan-tier
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/traefik/traefik.toml:/traefik.toml
+      - /opt/traefik/certs/:/certs/
+    container_name: traefik
+
+networks:
+  wekanmongodb_wekan-tier:
+    external: true
